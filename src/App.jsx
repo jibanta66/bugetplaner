@@ -20,6 +20,21 @@ const App = () => {
     setColNames([...colNames, `Column ${cols + 1}`]);
   };
 
+  const deleteRow = () => {
+    if (rows > 1) {
+      setRows(rows - 1);
+      setData(data.slice(0, -1));
+    }
+  };
+
+  const deleteCol = () => {
+    if (cols > 1) {
+      setCols(cols - 1);
+      setData(data.map(row => row.slice(0, -1)));
+      setColNames(colNames.slice(0, -1));
+    }
+  };
+
   const handleChange = (value, rowIndex, colIndex) => {
     const newData = data.map((row, rIdx) =>
       row.map((cell, cIdx) => (rIdx === rowIndex && cIdx === colIndex ? value : cell))
@@ -79,6 +94,8 @@ const App = () => {
       <h1>Excel Clone</h1>
       <Button variant="contained" color="primary" onClick={addRow}>Add Row</Button>
       <Button variant="contained" color="secondary" onClick={addCol}>Add Column</Button>
+      <Button variant="contained" color="primary" onClick={deleteRow}>Delete Row</Button>
+      <Button variant="contained" color="secondary" onClick={deleteCol}>Delete Column</Button>
       <Button variant="contained" color="primary" onClick={downloadCSV}>Download CSV</Button>
       <input
         type="file"

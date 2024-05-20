@@ -23,7 +23,7 @@ const TableComponent = ({ rows, cols, data, colNames, onChange, onEvaluate, onCo
       <Table>
         <TableHead>
           <TableRow>
-            {Array.from({ length: cols }).map((_, colIndex) => (
+            {colNames.map((name, colIndex) => (
               <TableCell key={colIndex} onDoubleClick={() => handleDoubleClick(colIndex)}>
                 {editColIndex === colIndex ? (
                   <TextField
@@ -42,14 +42,14 @@ const TableComponent = ({ rows, cols, data, colNames, onChange, onEvaluate, onCo
           </TableRow>
         </TableHead>
         <TableBody>
-          {Array.from({ length: rows }).map((_, rowIndex) => (
+          {data.map((row, rowIndex) => (
             <TableRow key={rowIndex}>
-              {Array.from({ length: cols }).map((_, colIndex) => (
+              {row.map((cell, colIndex) => (
                 <TableCell key={colIndex}>
                   <TextField
                     variant="outlined"
                     size="small"
-                    value={data[rowIndex][colIndex]}
+                    value={cell}
                     onChange={(e) => onChange(e.target.value, rowIndex, colIndex)}
                     onKeyPress={(e) => handleKeyPress(e, rowIndex, colIndex)}
                   />
